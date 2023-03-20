@@ -17,33 +17,39 @@ const stepsIndex = [
     imagePath: require('../../../assets/landing1.png'),
     subText: `We check each specialist before he ${'\n'} starts work`,
   },
-  {
-    id: 3,
-    text1: 'Proven',
-    text2: 'specialists',
-    imagePath: require('../../../assets/landing1.png'),
-    subText: `We check each specialist before he ${'\n'} starts work`,
-  },
-  {
-    id: 4,
-    text1: 'Proven',
-    text2: 'specialists',
-    imagePath: require('../../../assets/landing1.png'),
-    subText: `We check each specialist before he ${'\n'} starts work`,
-  },
+  // {
+  //   id: 3,
+  //   text1: 'Proven',
+  //   text2: 'specialists',
+  //   imagePath: require('../../../assets/landing1.png'),
+  //   subText: `We check each specialist before he ${'\n'} starts work`,
+  // },
+  // {
+  //   id: 4,
+  //   text1: 'Proven',
+  //   text2: 'specialists',
+  //   imagePath: require('../../../assets/landing1.png'),
+  //   subText: `We check each specialist before he ${'\n'} starts work`,
+  // },
 ];
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView | null>(null);
 
   const handlePress = () => {
-    scrollRef?.current?.scrollToIndex(step + 1);
+    console.log('first', scrollRef);
+    scrollRef.current.scrollTo({
+      x: -300,
+      y: 10,
+      animated: true,
+    });
   };
 
   return (
-    <View style={{flex: 1}}>
-      <FlatList
+    <View style={{backgroundColor: 'red', width: '100%'}}>
+      {/* <FlatList
+        ref={scrollRef}
         horizontal
         data={stepsIndex}
         renderItem={({item}) => (
@@ -57,7 +63,25 @@ const Onboarding = () => {
         pagingEnabled
         bounces={false}
         scrollEventThrottle={32}
-      />
+      /> */}
+
+      <ScrollView
+        ref={scrollRef}
+        // pagingEnabled
+        horizontal
+        contentContainerStyle={{flexGrow: 1}}>
+        {stepsIndex.map(item => {
+          return (
+            <LandingScreen1
+              key={item.id}
+              text1={item.text1}
+              text2={item.text2}
+              imagePath={item.imagePath}
+              subText={item.subText}
+            />
+          );
+        })}
+      </ScrollView>
       <Button title="changeStep" onPress={handlePress} />
     </View>
   );
