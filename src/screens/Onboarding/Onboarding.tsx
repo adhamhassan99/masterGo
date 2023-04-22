@@ -66,8 +66,11 @@ const Onboarding = () => {
       /> */}
 
       <ScrollView
+        onMomentumScrollEnd={event => {
+          console.log(event);
+        }}
         ref={scrollRef}
-        // pagingEnabled
+        pagingEnabled
         horizontal
         contentContainerStyle={{flexGrow: 1}}>
         {stepsIndex.map(item => {
